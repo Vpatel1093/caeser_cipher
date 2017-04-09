@@ -1,4 +1,5 @@
-#Implement Caeser cipher that takes input string, applies shift factor, and outputs modified string
+require 'sinatra'
+require 'sinatra/reloader' if development?
 
 def caeser_cipher(input_string,shift_factor)
 	ciphered=""
@@ -18,4 +19,11 @@ def caeser_cipher(input_string,shift_factor)
 		ciphered += new_char
 	end
 	ciphered
+end
+
+get '/' do
+	input_string = params['input'].to_s
+	shift_factor = params['shift'].to_i
+	answer = caeser_cipher(input_string,shift_factor)
+	erb :index, :locals => {:answer => answer}
 end
